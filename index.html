@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Map com Leaflet</title>
+    <style>
+        #map { 
+            flex;
+            justify-content: center;
+            height: 500px;
+            width: 90%;
+            align-itens: center;
+            margin: 50px, 150px;
+         }
+    </style>
+</head>
+<body>
+    <h1 class="text-center text-2xl text-green-600 my-16 hover:rotate-6">meu mapa personalizado</h1>
+    <h2 class="text-lg text-white text-center">
+        <p>tem coisa aqui      
+        </p>
+    </h2>
+    <div class="mx-auto rounded-xl" id="map"></div>
+    <script>
+        const loc = navigator.geolocation.getCurrentPosition((pos)=>{
+            const {latitude, longitude} = pos.coords
+            const h2 = document.querySelector("h2")
+            h2.innerText = `lat: ${latitude}, long: ${longitude}`
+            //const {lat, long} = pos.coords
+            console.log(`lat: ${latitude}, long: ${longitude}`)
+            //return latitude, longitude
+            
+            var map = L.map('map').setView([-16.011661, -48.077942], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            //attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var marker = L.marker([-16.012166, -48.077679]).addTo(map);
+        var circle = L.circle([-16.012166, -48.077679], {
+            color: 'orange',
+            fillColor: '#f03',
+            fillOpacity: 0.3,
+            radius: 500
+        }).addTo(map);
+        var circle = L.circle([-16.022166, -48.087679], {
+            color: '#EFC3CA',
+            fillColor: '#98F5F9',
+            fillOpacity: 0.4,
+            radius: 500
+        }).addTo(map);
+        marker.bindPopup(`<b class='text-violet-300 text-xl hover:text-sky-600 hover:rotate-6'>Hello world!</b><br> -16.012166, -48.077679]`).openPopup();
+        circle.bindPopup("<b class='text-rose-300 text-lg hover:text-2xl'>I am a circle.</b>");
+        polygon.bindPopup("I am a polygon.");
+        })
+        //console.log(loc)
+        
+    </script>
+</body>
+</html>
